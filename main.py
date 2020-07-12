@@ -1,5 +1,10 @@
 import tkinter as tk
 
+#TODO LIST
+#цветовая палитра
+#работа с файлами
+
+
 
 
 class Main(tk.Frame): #конструктор класса
