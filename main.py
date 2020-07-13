@@ -12,6 +12,7 @@ from const import COLORS
 
 class Main(tk.Frame): #конструктор класса
     def __init__(self, root):
+
         super().__init__(root)
         self.current_color = 0
         self.coordinate = [10, 10]
