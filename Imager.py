@@ -3,6 +3,7 @@ import os
 
 
 class Image:
+
     def save_IMG(self, widget, root):
         x = root.winfo_rootx() + widget.winfo_x()
         y = root.winfo_rooty() + widget.winfo_y()

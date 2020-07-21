@@ -16,6 +16,7 @@ class Main(tk.Frame):  # конструктор класса
         self.__init_main__()
         self.render_ui()
 
+
     def __init_main__(self):  # главная функции
         self.img = Imager.Image
 
