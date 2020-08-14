@@ -52,7 +52,6 @@ class Main(tk.Frame):  # конструктор класса
         self.previous_color = tk.Button(bg='green')
         self.previous_color.bind('<Button-1>', lambda event: self.change_color(-1))
 
-
         self.save_button = tk.Button(bg='purple')
         self.save_button.bind('<Button-1>', lambda event: self.img.save_IMG(self.work_place, root))
 
