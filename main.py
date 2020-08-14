@@ -1,13 +1,16 @@
 import tkinter as tk
 from const import *
 import Imager
+import Opener
 
 
 # TODO LIST
 # цветовая палитра 1/2
-# работа с файлами 10/100
+# работа с файлами 15/100
 # создать кнопку file, по нажатию на которую будет открывать окно для работы с файлами, отккрыть или созранить файл
 # при нажатии на них будет открываться еще одно диалоговое окно, для каждого из них
+# оформить все по человечески 0/100
+# закнуть openfle в main
 
 
 class Main(tk.Frame):  # конструктор класса
@@ -15,43 +18,47 @@ class Main(tk.Frame):  # конструктор класса
         super().__init__(root)
         self.__init_main__()
         self.render_ui()
-
+        self.img.is_dir_real()
+        self.open = Opener.Opener
 
     def __init_main__(self):  # главная функции
-        self.img = Imager.Image
+        self.img = Imager.Image()
 
         self.current_color = CURRENT_COLOR
         self.coordinate = COORDINATE
 
-        self.toolbar = tk.Frame(bg="black", height=295, width=125)
+        self.toolbar = tk.Frame(bg=COLORS[1], height=295, width=125)
 
         self.work_place = tk.Canvas(bg="white", height=300, width=500)
 
         self.up_button = tk.Button(bg="red")  # конпки управления
+        self.up_button.bind('<Button-1>', lambda event: self.calculate_pos(0, -1))
+
         self.right_button = tk.Button(bg="red")
-        self.down_button = tk.Button(bg="red")
-        self.left_button = tk.Button(bg="red")
-        self.draw_button = tk.Button(bg="blue")
-
-        self.next_color = tk.Button(bg='green')  # кнопки смены цвета
-        self.previous_color = tk.Button(bg='green')
-
-        # self.save_button = tk.Button(bg='purple')
-        # self.open_button = tk.Button(bg='purple')
-
-        self.up_button.bind('<Button-1>', lambda event: self.calculate_pos(0, -1))   # бинды на кнопки управления
         self.right_button.bind('<Button-1>', lambda event: self.calculate_pos(1, 0))
+
+        self.down_button = tk.Button(bg="red")
         self.down_button.bind('<Button-1>', lambda event: self.calculate_pos(0, 1))
+
+        self.left_button = tk.Button(bg="red")
         self.left_button.bind('<Button-1>', lambda event: self.calculate_pos(-1, 0))
+
+        self.draw_button = tk.Button(bg="blue")
         self.draw_button.bind('<Button-1>', lambda event: self.draw_pixel())
 
-        self.next_color.bind('<Button-1>', lambda event: self.change_color(1))  # бинды на кнопки смены цветы
+        self.next_color = tk.Button(bg='green')  # кнопки смены цвета
+        self.next_color.bind('<Button-1>', lambda event: self.change_color(1))
+
+        self.previous_color = tk.Button(bg='green')
         self.previous_color.bind('<Button-1>', lambda event: self.change_color(-1))
 
-        # self.save_button.bind('<Button-1>', lambda event: self.img.save_IMG(self.work_place, root))
-        # self.open_button.bind('<Button-1>', lambda event: self.img.open_IMG())
+        self.save_button = tk.Button(bg='purple')
+        self.save_button.bind('<Button-1>', lambda event: self.img.save_IMG(self.work_place, root))
 
-        self.point = self.render_point(COLORS[self.current_color])
+        self.open_button = tk.Button(bg='purple')
+        self.open_button.bind('<Button-1>', lambda event: self.open())
+
+        self.point = self.render_point(COLORS[self.current_color])  # каретка
 
     def check_pos(self, change_x, change_y):  # проверка нахождния координат в пределах work_place
         if self.coordinate[0] + change_x - 2 < 0 or self.coordinate[0] + change_x + 2 > 500:
@@ -97,8 +104,8 @@ class Main(tk.Frame):  # конструктор класса
         self.draw_button.place(x=570, y=130)
         self.next_color.place(x=585, y=190)
         self.previous_color.place(x=555, y=190)
-        # self.save_button.place(x=10, y=10)
-        # self.open_button.place(x=30, y=30)
+        self.save_button.place(x=10, y=0)
+        self.open_button.place(x=30, y=0)
 
 
 if __name__ == "__main__":

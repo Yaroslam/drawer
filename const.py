@@ -1,4 +1,4 @@
-COLORS = ['blue', 'green', 'purple', 'orange', 'maroon', 'gold',
+COLORS = ['blue', 'black', 'green', 'purple', 'orange', 'maroon', 'gold',
           'linen', 'antique white', 'papaya whip', 'blanched almond', 'bisque', 'peach puff',
           'navajo white', 'lemon chiffon', 'mint cream', 'azure', 'alice blue', 'lavender',
           'lavender blush', 'misty rose', 'dark slate gray', 'dim gray', 'slate gray',

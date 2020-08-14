@@ -1,5 +1,6 @@
 import PIL as pl
 import os
+from const import DIR_NAME
 
 
 class Image:
@@ -16,9 +17,9 @@ class Image:
         image = pl.ImageTk.PhotoImage(pilImage)
         return image
 
-    def is_dir_real(self, dir_name):
-        if not os.path.exists(dir_name):
-            os.mkdir(dir_name, mode=0o777)
+    def is_dir_real(self):
+        if not os.path.exists(DIR_NAME):
+            os.mkdir(DIR_NAME, mode=0o777)
         else:
             pass
 
