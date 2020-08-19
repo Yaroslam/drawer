@@ -1,33 +1,32 @@
 import tkinter as tk
 from const import *
 import Imager
-import Opener
+import File_work
 
 
 # TODO LIST
 # цветовая палитра 1/2
-# работа с файлами 15/100
+# работа с файлами 40/100
 # создать кнопку file, по нажатию на которую будет открывать окно для работы с файлами, отккрыть или созранить файл
 # при нажатии на них будет открываться еще одно диалоговое окно, для каждого из них
-# оформить все по человечески 0/100
-# закнуть openfle в main
+# оформить все по человечески 10/100
 
 
 class Main(tk.Frame):  # конструктор класса
     def __init__(self, root):
         super().__init__(root)
+        self.img = Imager.Imager()
+        self.FW = File_work.File_work()
         self.__init_main__()
         self.render_ui()
-        self.img.is_dir_real()
-        self.open = Opener.Opener
 
     def __init_main__(self):  # главная функции
-        self.img = Imager.Image()
+        self.FW.is_dir_real()
 
         self.current_color = CURRENT_COLOR
         self.coordinate = COORDINATE
 
-        self.toolbar = tk.Frame(bg=COLORS[1], height=295, width=125)
+        self.toolbar = tk.Frame(bg=COLORS[1], height=300, width=125)
 
         self.work_place = tk.Canvas(bg="white", height=300, width=500)
 
@@ -52,11 +51,11 @@ class Main(tk.Frame):  # конструктор класса
         self.previous_color = tk.Button(bg='green')
         self.previous_color.bind('<Button-1>', lambda event: self.change_color(-1))
 
-        self.save_button = tk.Button(bg='purple')
-        self.save_button.bind('<Button-1>', lambda event: self.img.save_IMG(self.work_place, root))
+        self.save_button = tk.Button(bg='purple', text='save')
+        self.save_button.bind('<Button-1>', lambda event: self.get_img())
 
-        self.open_button = tk.Button(bg='purple')
-        self.open_button.bind('<Button-1>', lambda event: self.open())
+        self.open_button = tk.Button(bg='purple', text='open')
+        self.open_button.bind('<Button-1>', lambda event: self.create_img())
 
         self.point = self.render_point(COLORS[self.current_color])  # каретка
 
@@ -94,9 +93,22 @@ class Main(tk.Frame):  # конструктор класса
                                          outline=COLORS[self.current_color])
         print(self.coordinate)
 
+    def get_img(self):  # сохраняем картинку
+        x = root.winfo_rootx()
+        y = root.winfo_rooty()
+        x1 = x + self.work_place.winfo_width()
+        y1 = y + self.work_place.winfo_height()
+        self.work_place.delete(self.point)
+        self.FW.save_file(x, y, x1, y1)
+
+    def create_img(self):  # вставляем картинку
+        self.work_place.image = self.FW.open_file()
+        self.work_place.create_image(0, 0, anchor='nw', image=self.work_place.image)
+        self.point = self.render_point(COLORS[self.current_color])
+
     def render_ui(self):  # рендер всех элементов
-        self.work_place.place(x=10, y=10)
-        self.toolbar.place(x=520, y=10)
+        self.work_place.place(x=10, y=30)
+        self.toolbar.place(x=517, y=32)
         self.up_button.place(x=570, y=100)
         self.right_button.place(x=585, y=130)
         self.down_button.place(x=570, y=160)
@@ -105,7 +117,7 @@ class Main(tk.Frame):  # конструктор класса
         self.next_color.place(x=585, y=190)
         self.previous_color.place(x=555, y=190)
         self.save_button.place(x=10, y=0)
-        self.open_button.place(x=30, y=0)
+        self.open_button.place(x=50, y=0)
 
 
 if __name__ == "__main__":
@@ -114,5 +126,5 @@ if __name__ == "__main__":
     app.pack()
     root.title("draw")
     root.geometry("650x340+300+200")
-    root.resizable(True, True)
+    root.resizable(False, False)
     root.mainloop()

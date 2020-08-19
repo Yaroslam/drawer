@@ -1,3 +1,5 @@
+import os
+
 COLORS = ['blue', 'black', 'green', 'purple', 'orange', 'maroon', 'gold',
           'linen', 'antique white', 'papaya whip', 'blanched almond', 'bisque', 'peach puff',
           'navajo white', 'lemon chiffon', 'mint cream', 'azure', 'alice blue', 'lavender',
@@ -78,3 +80,5 @@ COLORS = ['blue', 'black', 'green', 'purple', 'orange', 'maroon', 'gold',
 CURRENT_COLOR = 0
 COORDINATE = [10, 10]
 DIR_NAME = 'images'
+path = os.path.abspath('main.py')
+PATH = path[:-7]
